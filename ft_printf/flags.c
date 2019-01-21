@@ -85,21 +85,22 @@ int		checkflags(char *str, int i, t_fl *ft, t_flag *fl)
 	int j;
 
 	count = 0;
-	if (validletter(str[i]) == 0)
+	while (str[i] != '\0' && validletter(str[i]) == 0)
 	{
 		j = i;
 		if (j < (i = checkfirstflag(str, i, fl)))
 			;
-		if ((str[i] > 47 && str[i] < 58) || str[i] == '.') 
+		else if ((str[i] > 47 && str[i] < 58) || str[i] == '.')
 			i = countwidth(str, i, fl);
-		if (checksecondflag(str, i, ft) == 1)
+		else if (checksecondflag(str, i, ft) == 1)
 		{
 			if (ft->ll == 1 || ft->hh == 1)
 				i++;
 			i++;
 		}
+		else
+			break ;
 	}
-	if (settype(str[i], fl) == 0)
-		return (i);
+	settype(str[i], fl);
 	return (i);
 }

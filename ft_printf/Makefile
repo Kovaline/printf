@@ -6,19 +6,22 @@
 #    By: ikovalen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 13:47:41 by ikovalen          #+#    #+#              #
-#    Updated: 2018/12/06 14:02:22 by ikovalen         ###   ########.fr        #
+#    Updated: 2018/12/15 14:59:55 by ikovalen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 FLAGS = -c -Wall -Wextra -Werror
 OBJ = *.o
+SRC = ft_printf.c applyflags.c flags.c ft_itoa_base.c \
+	  ft_utoa_base.c printit.c prints.c prints2.c \
+	  validation.c
 
 all: $(NAME)
 
 $(NAME):
 	@make -C libft
-	gcc $(FLAGS) *.c	
+	gcc $(FLAGS) $(SRC)
 	ar rc $(NAME) *.o libft/*.o
 
 clean:
@@ -29,4 +32,4 @@ fclean: clean
 	@make -C libft/ fclean
 	@rm -f $(NAME)
 
-re: fclean all	
+re: fclean all

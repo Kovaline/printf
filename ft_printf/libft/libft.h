@@ -6,7 +6,7 @@
 /*   By: ikovalen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:50 by ikovalen          #+#    #+#             */
-/*   Updated: 2018/11/30 15:02:34 by ikovalen         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:02:19 by ikovalen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct		s_list
 
 struct				s_norme
 {
-	unsigned int i;
-	unsigned int j;
-	unsigned int len;
-	int z;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	len;
+	int				z;
 };
 
 void				error(void);

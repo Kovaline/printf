@@ -39,9 +39,9 @@ uintmax_t	convertingu(uintmax_t i, t_fl *ft)
 	return ((unsigned int)i);
 }
 
-char	*applyflagsint(char *str, t_fl *ft, t_flag *fl)
+char		*applyflagsint(char *str, t_fl *ft, t_flag *fl)
 {
-	char			*tmp = NULL;
+	char			*tmp;
 	unsigned int	i;
 	unsigned int	size;
 	int				j;
@@ -49,6 +49,7 @@ char	*applyflagsint(char *str, t_fl *ft, t_flag *fl)
 
 	i = 0;
 	j = 0;
+	tmp = NULL;
 	ft->hh = ft->hh;
 	if (fl->dot > ft_strlen(str))
 		size1 = fl->dot;
@@ -60,14 +61,14 @@ char	*applyflagsint(char *str, t_fl *ft, t_flag *fl)
 		size = size1;
 	if (fl->minus == 1)
 		tmp = applyminus(tmp, str, fl, size);
-	else if (fl->zero == 1 && fl->dot == 0 && fl->width > ft_strlen(str) && str[0])
+	else if (fl->zero == 1 && fl->isdot == 0 && fl->width > ft_strlen(str))
 		tmp = applyzero(tmp, str, fl);
-	else 
+	else
 		tmp = applynone(tmp, str, fl, size);
 	return (tmp);
 }
 
-void	printu(va_list var, t_fl *ft, t_flag *fl)
+void		printu(va_list var, t_fl *ft, t_flag *fl)
 {
 	char			*str;
 	uintmax_t		i;
@@ -77,19 +78,22 @@ void	printu(va_list var, t_fl *ft, t_flag *fl)
 	i = (uintmax_t)j;
 	i = convertingu(i, ft);
 	if (fl->isdot != 0 || i != 0)
-		str = ft_itoa_base(i, 10, fl);
+	{
+		str = ft_utoa_base(i, 10, fl);
+	}
 	else
 	{
-		str = (char *)malloc(1 *sizeof(char));
+		str = (char *)malloc(1 * sizeof(char));
 		str[0] = '0';
 		str[1] = '\0';
 	}
 	str = applyflagsint(str, ft, fl);
 	fl->count = fl->count + ft_strlen(str);
 	ft_putstr(str);
+	free(str);
 }
 
-void	printint(va_list var, t_fl *ft, t_flag *fl)
+void		printint(va_list var, t_fl *ft, t_flag *fl)
 {
 	char			*str;
 	intmax_t		i;
@@ -99,11 +103,12 @@ void	printint(va_list var, t_fl *ft, t_flag *fl)
 		str = ft_itoa_base(i, 10, fl);
 	else
 	{
-		str = (char *)malloc(1 *sizeof(char));
+		str = (char *)malloc(1 * sizeof(char));
 		str[0] = '0';
 		str[1] = '\0';
 	}
 	str = applyflagsint(str, ft, fl);
 	fl->count = fl->count + ft_strlen(str);
 	ft_putstr(str);
+	free(str);
 }

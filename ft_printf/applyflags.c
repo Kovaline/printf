@@ -38,6 +38,7 @@ char	*applyminus(char *tmp, char *str, t_flag *fl, unsigned int size)
 	while (j < size)
 		tmp[j++] = ' ';
 	tmp[j] = '\0';
+	free(str);
 	return (tmp);
 }
 
@@ -72,7 +73,7 @@ char	*applyzero(char *tmp, char *str, t_flag *fl)
 	t.i = 0;
 	t.j = 0;
 	t.len = ft_strlen(str);
-	tmp = (char *)malloc(t.len + 1);
+	tmp = (char *)malloc(fl->width + 1);
 	if (fl->sharp == 1 && fl->iszero == 0)
 	{
 		tmp = applysignszero(tmp, fl, t.j, -3);
@@ -80,17 +81,17 @@ char	*applyzero(char *tmp, char *str, t_flag *fl)
 	}
 	if (str[0] == '-')
 		tmp = applysignszero(tmp, fl, t.j++, t.i++);
-	else if ((fl->type == 'd' || fl->type == 'i')
-		&& fl->plus == 1 && str[0] != '-')
+	else if (fl->plus == 1 && str[0] != '-')
 		tmp = applysignszero(tmp, fl, t.j++, -1);
 	else if ((fl->type == 'd' || fl->type == 'i')
 		&& fl->space == 1 && str[0] != '-')
 		tmp = applysignszero(tmp, fl, t.j++, -2);
 	while (fl->width-- > t.len)
 		tmp[t.j++] = '0';
-	while (str[t.i])
+	while (str[t.i] != '\0')
 		tmp[t.j++] = str[t.i++];
 	tmp[t.j] = '\0';
+	free(str);
 	return (tmp);
 }
 
@@ -108,17 +109,17 @@ char	*applynone(char *tmp, char *str, t_flag *fl, unsigned int size)
 		tmp[t.j++] = ' ';
 	if (fl->sharp == 1 && fl->iszero == 0)
 		tmp = sharp(tmp, fl, &t);
-	if ((fl->type == 'd' || fl->type == 'i') && fl->plus == 1 && str[0] != '-')
+	if (fl->plus == 1 && str[0] != '-')
 		tmp[t.j++] = '+';
-	else if ((fl->type == 'd' || fl->type == 'i')
-		&& fl->space == 1 && str[0] != '-')
+	else if (fl->space == 1 && str[0] != '-')
 		tmp[t.j++] = ' ';
 	else if (str[0] == '-' && size > t.len)
 		tmp[t.j++] = ' ';
-	else if (size > t.len && fl->sharp != 1)
+	else if (size > t.len && (fl->sharp != 1 || fl->iszero == 1))
 		tmp[t.j++] = ' ';
 	while (str[t.i] != '\0')
 		tmp[t.j++] = str[t.i++];
 	tmp[t.j] = '\0';
+	free(str);
 	return (tmp);
 }

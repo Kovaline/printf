@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static	int		checknum(int n)
+static	int		checknum(intmax_t n)
 {
 	int i;
 	int j;
@@ -57,6 +57,7 @@ char			*ft_itoa(intmax_t n)
 	int		i;
 	char	*sr;
 	int		numbers;
+
 	if (n == 0 || n == -0)
 	{
 		sr = (char *)malloc(2);
