@@ -6,7 +6,7 @@
 #    By: ikovalen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/06 13:47:41 by ikovalen          #+#    #+#              #
-#    Updated: 2018/12/15 14:59:55 by ikovalen         ###   ########.fr        #
+#    Updated: 2019/01/24 14:48:13 by ikovalen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS = -c -Wall -Wextra -Werror
 OBJ = *.o
 SRC = ft_printf.c applyflags.c flags.c ft_itoa_base.c \
 	  ft_utoa_base.c printit.c prints.c prints2.c \
-	  validation.c
+	  validation.c bonusprints.c
 
 all: $(NAME)
 

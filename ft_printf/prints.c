@@ -15,27 +15,35 @@
 
 intmax_t	convertingd(intmax_t i, t_fl *ft)
 {
+	if (ft->l == 1)
+		return ((long)i);
 	if (ft->h == 1)
 		return ((short)i);
 	if (ft->hh == 1)
 		return ((char)i);
-	if (ft->l == 1)
-		return ((long)i);
 	if (ft->ll == 1)
 		return ((long long)i);
+	if (ft->z == 1)
+		return ((size_t)i);
+	if (ft->j == 1)
+		return ((intmax_t)i);
 	return ((int)i);
 }
 
 uintmax_t	convertingu(uintmax_t i, t_fl *ft)
 {
+	if (ft->l == 1)
+		return ((unsigned long)i);
 	if (ft->h == 1)
 		return ((unsigned short)i);
 	if (ft->hh == 1)
 		return ((unsigned char)i);
-	if (ft->l == 1)
-		return ((unsigned long)i);
 	if (ft->ll == 1)
 		return ((unsigned long long)i);
+	if (ft->z == 1)
+		return ((size_t)i);
+	if (ft->j == 1)
+		return ((uintmax_t)i);
 	return ((unsigned int)i);
 }
 

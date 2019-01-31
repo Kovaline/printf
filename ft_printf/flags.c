@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		checkfirstflag(char *str, int i, t_flag *fl)
 {
@@ -39,43 +38,57 @@ int		checkfirstflag(char *str, int i, t_flag *fl)
 
 int		checksecondflag(char *str, int i, t_fl *ft)
 {
-	if (str[i] == 'h')
+	if (str[i] == 'z')
+		ft->z = 1;
+	else if (str[i] == 'j')
+		ft->j = 1;
+	else if (str[i] == 'h')
 	{
 		if (str[i + 1] == 'h')
 			ft->hh = 1;
 		else
 			ft->h = 1;
-		return (1);
 	}
-	if (str[i] == 'l')
+	else if (str[i] == 'l')
 	{
 		if (str[i + 1] == 'l')
 			ft->ll = 1;
 		else
 			ft->l = 1;
-		return (1);
 	}
-	if (str[i] == 'L')
-	{
+	else if (str[i] == 'L')
 		ft->bigl = 1;
-		return (1);
-	}
-	return (0);
+	else
+		return (0);
+	return (1);
 }
 
 int		countwidth(char *str, int i, t_flag *fl)
 {
-	fl->width = ft_atoi(str + i);
-	while (str[i] > 47 && str[i] < 58)
+	if (str[i] == '*')
+	{
+		fl->starwidth++;
 		i++;
+	}
+	if (str[i] > 47 && str[i] < 58)
+	{
+		H;
+		fl->width = ft_atoi(str + i);
+	}
+	G;
 	if (str[i] == '.')
 	{
 		i++;
 		fl->isdot = 1;
 	}
-	fl->dot = ft_atoi(str + i);
-	while (str[i] > 47 && str[i] < 58)
+	if (str[i] > 47 && str[i] < 58)
+		fl->dot = ft_atoi(str + i);
+	else if (str[i] == '*' && fl->isdot == 1)
+	{
+		fl->stardot++;
 		i++;
+	}
+	G;
 	return (i);
 }
 
@@ -90,7 +103,7 @@ int		checkflags(char *str, int i, t_fl *ft, t_flag *fl)
 		j = i;
 		if (j < (i = checkfirstflag(str, i, fl)))
 			;
-		else if ((str[i] > 47 && str[i] < 58) || str[i] == '.')
+		else if ((str[i] > 47 && str[i] < 58) || str[i] == '.' || str[i] == '*')
 			i = countwidth(str, i, fl);
 		else if (checksecondflag(str, i, ft) == 1)
 		{
@@ -101,6 +114,6 @@ int		checkflags(char *str, int i, t_fl *ft, t_flag *fl)
 		else
 			break ;
 	}
-	settype(str[i], fl);
+	settype(str[i], fl, ft);
 	return (i);
 }

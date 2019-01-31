@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	settozero(t_fl *ft, t_flag *fl)
 {
@@ -26,19 +25,20 @@ void	settozero(t_fl *ft, t_flag *fl)
 	ft->l = 0;
 	ft->bigl = 0;
 	ft->ll = 0;
+	ft->z = 0;
+	ft->j = 0;
 	fl->type = 0;
 	fl->dot = 0;
 	fl->isdot = 0;
 	fl->iszero = 0;
+	fl->starwidth = 0;
+	fl->stardot = 0;
+	fl->checkstar = 0;
 }
 
 int		ft_printf(const char *format, ...)
 {
-	va_list var;
-	int		i;
-	t_fl	ft;
-	t_flag	fl;
-
+	I;
 	A;
 	while (format[i] != '\0')
 	{
@@ -46,9 +46,13 @@ int		ft_printf(const char *format, ...)
 		{
 			i = checkflags((char *)format, ++i, &ft, &fl);
 			if (fl.type == 0)
+			{
+				printnone(&ft, &fl, format[i]);
+				if (format[i] != '\0')
+					i++;
 				continue ;
-			printit(var, &ft, &fl);
-			settozero(&ft, &fl);
+			}
+			J;
 		}
 		else
 		{
@@ -60,11 +64,3 @@ int		ft_printf(const char *format, ...)
 	va_end(var);
 	return (fl.count);
 }
-
-/*int main()
-{
-	printf("%i", ft_printf("%"));
-	printf("\n");
-	fflush(stdout);
-	printf("%i", printf("%"));
-}*/

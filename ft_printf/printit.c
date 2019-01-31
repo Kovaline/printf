@@ -109,22 +109,26 @@ void	printperc(t_fl *ft, t_flag *fl)
 
 void	printit(va_list var, t_fl *ft, t_flag *fl)
 {
+	if (fl->starwidth != 0 || fl->stardot != 0)
+		fillstar(var, fl);
 	if (fl->type == 'i' || fl->type == 'd')
 		printint(var, ft, fl);
 	else if (fl->type == 'u')
 		printu(var, ft, fl);
-	if (fl->type == 'c')
+	else if (fl->type == 'c')
 		printchar(var, ft, fl);
-	if (fl->type == 's')
+	else if (fl->type == 's')
 		printstr(var, ft, fl);
-	if (fl->type == 'p')
+	else if (fl->type == 'p')
 		printpoint(var, ft, fl);
-	if (fl->type == 'x' || fl->type == 'X')
+	else if (fl->type == 'x' || fl->type == 'X')
 		printhexa(var, ft, fl);
-	if (fl->type == 'o')
+	else if (fl->type == 'o')
 		printocta(var, ft, fl);
-	if (fl->type == 'f')
+	else if (fl->type == 'f')
 		printdouble(var, ft, fl);
-	if (fl->type == '%')
+	else if (fl->type == '%')
 		printperc(ft, fl);
+	else if (fl->type == 'b')
+		printbinary(var, ft, fl);
 }

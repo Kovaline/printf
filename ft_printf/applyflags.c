@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 char	*applyminus(char *tmp, char *str, t_flag *fl, unsigned int size)
 {
